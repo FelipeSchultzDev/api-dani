@@ -33,7 +33,7 @@ class App {
         useFindAndModify: false,
         useCreateIndex: true
       }
-      connect('mongodb://localhost/tcc', options)
+      connect('mongodb://localhost/dani', options)
         .then((): void => {
           ColorCMD('blue', '', '[mongoose] Conectado')
         })
