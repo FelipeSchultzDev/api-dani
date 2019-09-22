@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 
-import { tokenInvalid, tokenNull } from './../util/messages'
 import variables from './../config/variables'
 
 const token = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
@@ -19,10 +18,10 @@ const token = async (req: Request, res: Response, next: NextFunction): Promise<R
       res.locals.user = decoded
       next()
     } catch (error) {
-      return res.status(401).send({ msg: tokenInvalid() })
+      return res.status(401).send({ success: false, error: 'Token inválido' })
     }
   } else {
-    return res.status(401).send({ msg: tokenNull() })
+    return res.status(401).send({ success: false, error: 'Você deve enviar um token na requisição' })
   }
 }
 
