@@ -4,11 +4,12 @@ import { connect, ConnectionOptions } from 'mongoose'
 import bodyParser from 'body-parser'
 
 import ColorCMD from '../util/ColorCMD'
+import variaveis from '../config/variaveis'
 
-import jwt from './../middlewares/authentication'
+// import jwt from './../middlewares/authentication'
 
-// // Rotas
-import routes from '../routes/routes'
+// Rotas
+import paciente from '../routes/paciente.routes'
 import loginRoutes from '../routes/login.routes'
 
 class App {
@@ -33,18 +34,19 @@ class App {
         useFindAndModify: false,
         useCreateIndex: true
       }
-      connect('mongodb://localhost/dani', options)
+      connect(variaveis.banco, options)
         .then((): void => {
           ColorCMD('blue', '', '[mongoose] Conectado')
         })
-        .catch((err): void => {
-          ColorCMD('red', '', `Erro: ${err}`)
+        .catch((erro): void => {
+          ColorCMD('red', '', `Erro: ${erro}`)
         })
     }
 
     private routes (): void {
       this.express.use('/login', loginRoutes)
-      this.express.use('/', jwt, routes)
+      this.express.use('/', paciente)
+      // this.express.use('/', jwt, paciente)
     }
 }
 
