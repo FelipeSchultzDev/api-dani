@@ -5,7 +5,7 @@ import criarSchema from '../schemas/paciente-schemas/criarPacienteSchema'
 
 class PacienteValidacao {
   public async create (req: Request, res: Response, next: NextFunction): Promise<Response> {
-    const { error, value } = Joi.validate({ nome: '' }, criarSchema, { abortEarly: false })
+    const { error, value } = Joi.validate(req.body, criarSchema, { abortEarly: false })
     console.log(error, value)
     // next()
     return res.status(200).json()
