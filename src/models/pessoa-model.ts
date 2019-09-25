@@ -4,6 +4,7 @@ import PessoaInterface from './../core/pessoa.interface'
 
 const Pessoa = new Schema({
   nome: { type: String, lowercase: true },
+  sobrenome: { type: String, lowercase: true },
   nascimento: { type: Date, lowercase: true },
   sexo: { type: String },
   cpf: { type: String,
