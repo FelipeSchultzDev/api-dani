@@ -3,10 +3,12 @@ import cors from 'cors'
 import { connect, ConnectionOptions } from 'mongoose'
 import bodyParser from 'body-parser'
 
-import ColorCMD from '../util/ColorCMD'
+import Console from '../util/logger'
 import variaveis from '../config/variaveis'
 
-// import jwt from './../middlewares/authentication'
+import { cid } from './../Scripts/scripts'
+
+// import jwt from './../security/autenticacao'
 
 // Rotas
 import paciente from '../routes/paciente.routes'
@@ -36,10 +38,11 @@ class App {
       }
       connect(variaveis.banco, options)
         .then((): void => {
-          ColorCMD('blue', '', '[mongoose] Conectado')
+          Console.log('[mongoose] Conectado')
+          cid()
         })
         .catch((erro): void => {
-          ColorCMD('red', '', `Erro: ${erro}`)
+          Console.error(`Erro: ${erro}`)
         })
     }
 
