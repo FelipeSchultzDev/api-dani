@@ -6,7 +6,7 @@ import bodyParser from 'body-parser'
 import Console from '../util/logger'
 import variaveis from '../config/variaveis'
 
-import { cid } from './../Scripts/scripts'
+import { cid, medicamentos, especialidade, condicao, alimentos } from './../Scripts/scripts'
 
 // import jwt from './../security/autenticacao'
 
@@ -40,6 +40,10 @@ class App {
         .then((): void => {
           Console.log('[mongoose] Conectado')
           cid()
+          medicamentos()
+          especialidade()
+          condicao()
+          alimentos()
         })
         .catch((erro): void => {
           Console.error(`Erro: ${erro}`)

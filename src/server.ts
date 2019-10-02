@@ -1,11 +1,9 @@
 import app from './config/app'
 import variaveis from './config/variaveis'
-import ColorCMD from './util/ColorCMD'
-// import autoCreateAcessos from './util/autoCreateAcessos'
+import Console from './util/logger'
 
 const server = app.listen(variaveis.Api, async (): Promise<void> => {
-  ColorCMD('purple', '', '[API] Rodando')
-  ColorCMD('purple', '', `[API] Porta: ${variaveis.Api.port}`)
-  // await autoCreateAcessos()
+  Console.custom('[API] Rodando', Console.color.cyan)
+  Console.custom(`[API] Porta: ${variaveis.Api.port}`, Console.color.cyan)
 })
 server.timeout = 30000
