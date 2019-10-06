@@ -1,17 +1,9 @@
+import { ValidationError } from 'joi'
 import md5 from 'md5'
 
 class Util {
-  public emailValidation (email: string): boolean {
-    let regex = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-
-    if (regex.test(email)) {
-      return true
-    } else {
-      return false
-    }
-  }
-
   public cpfValidation (cpf: string): boolean {
+    cpf = cpf.replace('.', '').replace('.', '').replace('.', '').replace('-', '')
     var Soma
     var Resto
     Soma = 0
@@ -32,40 +24,30 @@ class Util {
     return true
   }
 
-  public dateValidation (date): boolean {
-    let ExpReg = new RegExp('(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[12][0-9]{3}')
-    let splitDate = date.split('/')
-    let erro = false
-
-    if (date.search(ExpReg) === -1) {
-      erro = true
-    } else if (((splitDate[1] === 4) || (splitDate[1] === 6) || (splitDate[1] === 9) || (splitDate[1] === 11)) && (splitDate[0] > 30)) {
-      erro = true
-    } else if (splitDate[1] === 2) {
-      if ((splitDate[0] > 28) && ((splitDate[2] % 4) !== 0)) {
-        erro = true
-      }
-      if ((splitDate[0] > 29) && ((splitDate[2] % 4) === 0)) {
-        erro = true
-      }
-    }
-
-    if (erro) {
-      return false
-    }
-
-    return true
-  }
-
   public celValidation (celular: string): boolean {
     let regex = /^\(\d{2}\)[\s\S](9|)[6789]\d{3}-\d{4}$/
     return regex.test(celular)
   }
 
   public encode (password: string): string {
-    let teste = md5(password)
-    return teste
+    return md5(password)
+  }
+
+  public joiErrorConvert (errorList: ValidationError): Error[] {
+    const newErrorList = errorList.details.map((err): Error => {
+      return {
+        msg: err.message,
+        field: err.context.key
+      }
+    })
+
+    return newErrorList
   }
 }
 
 export default new Util()
+
+interface Error {
+  msg: string;
+  field: string;
+}

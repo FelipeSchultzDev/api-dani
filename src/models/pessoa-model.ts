@@ -3,28 +3,19 @@ import { Schema, model } from 'mongoose'
 import PessoaInterface from './../core/pessoa.interface'
 
 const Pessoa = new Schema({
-  nome: { type: String, lowercase: true },
-  sobrenome: { type: String, lowercase: true },
-  nascimento: { type: Date, lowercase: true },
-  sexo: { type: String },
-  cpf: { type: String,
-    min: 14,
-    max: 14,
-    validate: [{
-      validator: async (cpf: string): Promise<boolean> => {
-        let search = await model('Pessoa').find({ cpf: cpf.toLowerCase() })
-
-        if (search.length > 0) return false
-      }
-    }] },
-  email: { type: String },
-  senha: { type: String, required: true },
-  cns: { type: String, required: true, unique: true },
-  nomeMae: { type: String },
-  nomePaiae: { type: String },
-  celular: { type: String, min: 14, max: 14 },
-  telEmergencia: { type: String, min: 14, max: 14 },
-  crm: { type: String },
+  nome: { type: String, lowercase: true, default: '' },
+  sobrenome: { type: String, lowercase: true, default: '' },
+  nascimento: { type: Date, lowercase: true, default: '' },
+  sexo: { type: String, default: '' },
+  cpf: { type: String, min: 14, max: 14 },
+  email: { type: String, default: '' },
+  senha: { type: String, default: '' },
+  cns: { type: String, unique: true },
+  nomeMae: { type: String, default: '' },
+  nomePaiae: { type: String, default: '' },
+  celular: { type: String, min: 14, max: 14, default: '' },
+  telEmergencia: { type: String, min: 14, max: 14, default: '' },
+  crm: { type: String, default: '' },
   especialidade: { type: Schema.Types.ObjectId },
   tpoSanguineo: { type: Schema.Types.ObjectId },
   medicamentos: { type: [Schema.Types.ObjectId] },
