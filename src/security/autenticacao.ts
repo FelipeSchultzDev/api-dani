@@ -6,16 +6,11 @@ import variaveis from '../config/variaveis'
 const token = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
   let token = req.body.token || req.query.query || req.headers['token']
 
-  if (token === 'dev') {
-    next()
-    return
-  }
-
   if (token) {
     try {
-      let decoded = jwt.verify(token, variaveis.seguranca.secretKey)
+      let decoded = jwt.verify(token, variaveis.seguranca.secretKey) as Decoded
       // TODO: Rever o decoded
-      res.locals.user = decoded
+      res.locals.user = decoded.user
       next()
     } catch (error) {
       return res.status(401).send({ success: false, error: 'Token inválido' })
@@ -26,3 +21,12 @@ const token = async (req: Request, res: Response, next: NextFunction): Promise<R
 }
 
 export default token
+
+interface Decoded {
+  user: {
+    id: string,
+    usuario: string
+  },
+  iat: number,
+  exp: number,
+}

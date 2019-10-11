@@ -3,7 +3,7 @@ import Joi from 'joi'
 
 import util from '../util/util'
 
-import criarSchema from '../schemas/paciente-schemas/criarPacienteSchema'
+import criarSchema from '../schemas/paciente-schemas/criarPaciente.schema'
 
 import PacienteModel from '../models/pessoa-model'
 

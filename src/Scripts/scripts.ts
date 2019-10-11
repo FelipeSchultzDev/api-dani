@@ -16,6 +16,12 @@ import medicamentosLista from './docs/medicamentos'
 import medicamentoModel from '../models/medicamento-model'
 
 export const alimentos = async (): Promise<void> => {
+  const validate = await alimentosModel.find()
+
+  if (!(validate.length < alimentosLista.length)) {
+    return Console.success('[mongoose-script] Carga de alimentos completa')
+  }
+
   alimentosModel.insertMany(alimentosLista, { ordered: false })
     .then((): void => {
       Console.success('[mongoose-script] Carga de alimentos completa')
@@ -26,6 +32,12 @@ export const alimentos = async (): Promise<void> => {
 }
 
 export const cid = async (): Promise<void> => {
+  const validate = await cidModel.find()
+
+  if (!(validate.length < cidLista.length)) {
+    return Console.success('[mongoose-script] Carga de doenças completa')
+  }
+
   cidModel.insertMany(cidLista, { ordered: false })
     .then((): void => {
       Console.success('[mongoose-script] Carga de doenças completa')
@@ -36,6 +48,12 @@ export const cid = async (): Promise<void> => {
 }
 
 export const condicao = async (): Promise<void> => {
+  const validate = await condicaoModel.find()
+
+  if (!(validate.length < condicaoLista.length)) {
+    return Console.success('[mongoose-script] Carga de condições completa')
+  }
+
   condicaoModel.insertMany(condicaoLista, { ordered: false })
     .then((): void => {
       Console.success('[mongoose-script] Carga de condições completa')
@@ -46,6 +64,12 @@ export const condicao = async (): Promise<void> => {
 }
 
 export const especialidade = async (): Promise<void> => {
+  const validate = await especialidadeModel.find()
+
+  if (!(validate.length < especialidadeLista.length)) {
+    return Console.success('[mongoose-script] Carga de especialidades completa')
+  }
+
   especialidadeModel.insertMany(especialidadeLista, { ordered: false })
     .then((): void => {
       Console.success('[mongoose-script] Carga de especialidades completa')
@@ -56,6 +80,12 @@ export const especialidade = async (): Promise<void> => {
 }
 
 export const medicamentos = async (): Promise<void> => {
+  const validate = await medicamentoModel.find()
+
+  if (!(validate.length < medicamentosLista.length)) {
+    return Console.success('[mongoose-script] Carga de medicamentos completa')
+  }
+
   medicamentoModel.insertMany(medicamentosLista, { ordered: false })
     .then((): void => {
       Console.success('[mongoose-script] Carga de medicamentos completa')

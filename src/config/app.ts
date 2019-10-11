@@ -8,8 +8,6 @@ import variaveis from '../config/variaveis'
 
 import { cid, medicamentos, especialidade, condicao, alimentos } from './../Scripts/scripts'
 
-// import jwt from './../security/autenticacao'
-
 // Rotas
 import paciente from '../routes/paciente.routes'
 import loginRoutes from '../routes/login.routes'
@@ -53,7 +51,6 @@ class App {
     private routes (): void {
       this.express.use('/login', loginRoutes)
       this.express.use('/', paciente)
-      // this.express.use('/', jwt, paciente)
     }
 }
 
