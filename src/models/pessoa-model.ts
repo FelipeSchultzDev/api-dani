@@ -10,7 +10,7 @@ const Pessoa = new Schema({
   cpf: { type: String, min: 14, max: 14 },
   email: { type: String, default: '' },
   senha: { type: String, default: '' },
-  cns: { type: String, default: '' },
+  cns: { type: String },
   nomeMae: { type: String, default: '' },
   nomePai: { type: String, default: '' },
   celular: { type: String, min: 14, max: 14, default: '' },
@@ -26,11 +26,3 @@ const Pessoa = new Schema({
   timestamps: false
 })
 export default model<PessoaInterface>('Pessoa', Pessoa)
-
-// validate: [{
-//   validator: async (cns: string): Promise<boolean> => {
-//     let search = await model('Pessoa').find({ cns: cns.toLowerCase() })
-
-//     if (search.length > 0) return false
-//   }
-// }]
