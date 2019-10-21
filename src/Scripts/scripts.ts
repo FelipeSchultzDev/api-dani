@@ -19,7 +19,7 @@ export const alimentos = async (): Promise<void> => {
   alimentosModel.countDocuments(null, (err, count): void => {
     if (err) return Console.error('[mongoose-script] Erro ao inserir a carga de alimentos')
 
-    if (count > alimentosLista.length) {
+    if (count < alimentosLista.length) {
       alimentosModel.insertMany(alimentosLista, { ordered: false })
         .then((): void => {
           Console.success('[mongoose-script] Carga de alimentos completa')
@@ -37,7 +37,7 @@ export const cid = async (): Promise<void> => {
   cidModel.countDocuments(null, (err, count): void => {
     if (err) return Console.error('[mongoose-script] Erro ao inserir a carga de doenças')
 
-    if (count > cidLista.length) {
+    if (count < cidLista.length) {
       cidModel.insertMany(cidLista, { ordered: false })
         .then((): void => {
           Console.success('[mongoose-script] Carga de doenças completa')
@@ -55,7 +55,7 @@ export const condicao = async (): Promise<void> => {
   condicaoModel.countDocuments(null, (err, count): void => {
     if (err) return Console.error('[mongoose-script] Erro ao inserir a carga de condições')
 
-    if (count > condicaoLista.length) {
+    if (count < condicaoLista.length) {
       condicaoModel.insertMany(condicaoLista, { ordered: false })
         .then((): void => {
           Console.success('[mongoose-script] Carga de condições completa')
@@ -73,7 +73,7 @@ export const especialidade = async (): Promise<void> => {
   especialidadeModel.countDocuments(null, (err, count): void => {
     if (err) return Console.error('[mongoose-script] Erro ao inserir a carga de especialidades')
 
-    if (count > especialidadeLista.length) {
+    if (count < especialidadeLista.length) {
       especialidadeModel.insertMany(especialidadeLista, { ordered: false })
         .then((): void => {
           Console.success('[mongoose-script] Carga de especialidades completa')
@@ -91,7 +91,7 @@ export const medicamentos = async (): Promise<void> => {
   medicamentoModel.countDocuments(null, (err, count): void => {
     if (err) return Console.error('[mongoose-script] Erro ao inserir a carga de medicamentos')
 
-    if (count > medicamentosLista.length) {
+    if (count < medicamentosLista.length) {
       medicamentoModel.insertMany(medicamentosLista, { ordered: false })
         .then((): void => {
           Console.success('[mongoose-script] Carga de medicamentos completa')
