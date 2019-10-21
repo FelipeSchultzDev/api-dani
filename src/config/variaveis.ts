@@ -1,6 +1,6 @@
 const variables = {
   api: {
-    port: process.env.port || 3001
+    port: process.env.PORT || 3001
   },
   banco: process.env.connection || 'mongodb://localhost/tcc-dani',
   seguranca: {
