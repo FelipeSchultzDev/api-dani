@@ -16,81 +16,91 @@ import medicamentosLista from './docs/medicamentos'
 import medicamentoModel from '../models/medicamento-model'
 
 export const alimentos = async (): Promise<void> => {
-  const validate = await alimentosModel.find()
+  alimentosModel.countDocuments(null, (err, count): void => {
+    if (err) return Console.error('[mongoose-script] Erro ao inserir a carga de alimentos')
 
-  if (!(validate.length < alimentosLista.length)) {
-    return Console.success('[mongoose-script] Carga de alimentos completa')
-  }
-
-  alimentosModel.insertMany(alimentosLista, { ordered: false })
-    .then((): void => {
+    if (count > alimentosLista.length) {
+      alimentosModel.insertMany(alimentosLista, { ordered: false })
+        .then((): void => {
+          Console.success('[mongoose-script] Carga de alimentos completa')
+        })
+        .catch((): void => {
+          Console.error('[mongoose-script] Erro ao inserir a carga de alimentos')
+        })
+    } else {
       Console.success('[mongoose-script] Carga de alimentos completa')
-    })
-    .catch((): void => {
-      Console.error('[mongoose-script] Erro ao inserir a carga de alimentos')
-    })
+    }
+  })
 }
 
 export const cid = async (): Promise<void> => {
-  const validate = await cidModel.find()
+  cidModel.countDocuments(null, (err, count): void => {
+    if (err) return Console.error('[mongoose-script] Erro ao inserir a carga de doenças')
 
-  if (!(validate.length < cidLista.length)) {
-    return Console.success('[mongoose-script] Carga de doenças completa')
-  }
-
-  cidModel.insertMany(cidLista, { ordered: false })
-    .then((): void => {
+    if (count > cidLista.length) {
+      cidModel.insertMany(cidLista, { ordered: false })
+        .then((): void => {
+          Console.success('[mongoose-script] Carga de doenças completa')
+        })
+        .catch((): void => {
+          Console.error('[mongoose-script] Erro ao inserir a carga de doenças')
+        })
+    } else {
       Console.success('[mongoose-script] Carga de doenças completa')
-    })
-    .catch((): void => {
-      Console.error('[mongoose-script] Erro ao inserir a carga de doenças')
-    })
+    }
+  })
 }
 
 export const condicao = async (): Promise<void> => {
-  const validate = await condicaoModel.find()
+  condicaoModel.countDocuments(null, (err, count): void => {
+    if (err) return Console.error('[mongoose-script] Erro ao inserir a carga de condições')
 
-  if (!(validate.length < condicaoLista.length)) {
-    return Console.success('[mongoose-script] Carga de condições completa')
-  }
-
-  condicaoModel.insertMany(condicaoLista, { ordered: false })
-    .then((): void => {
+    if (count > condicaoLista.length) {
+      condicaoModel.insertMany(condicaoLista, { ordered: false })
+        .then((): void => {
+          Console.success('[mongoose-script] Carga de condições completa')
+        })
+        .catch((): void => {
+          Console.error('[mongoose-script] Erro ao inserir a carga de condições')
+        })
+    } else {
       Console.success('[mongoose-script] Carga de condições completa')
-    })
-    .catch((): void => {
-      Console.error('[mongoose-script] Erro ao inserir a carga de condições')
-    })
+    }
+  })
 }
 
 export const especialidade = async (): Promise<void> => {
-  const validate = await especialidadeModel.find()
+  especialidadeModel.countDocuments(null, (err, count): void => {
+    if (err) return Console.error('[mongoose-script] Erro ao inserir a carga de especialidades')
 
-  if (!(validate.length < especialidadeLista.length)) {
-    return Console.success('[mongoose-script] Carga de especialidades completa')
-  }
-
-  especialidadeModel.insertMany(especialidadeLista, { ordered: false })
-    .then((): void => {
+    if (count > especialidadeLista.length) {
+      especialidadeModel.insertMany(especialidadeLista, { ordered: false })
+        .then((): void => {
+          Console.success('[mongoose-script] Carga de especialidades completa')
+        })
+        .catch((): void => {
+          Console.error('[mongoose-script] Erro ao inserir a carga de especialidades')
+        })
+    } else {
       Console.success('[mongoose-script] Carga de especialidades completa')
-    })
-    .catch((): void => {
-      Console.error('[mongoose-script] Erro ao inserir a carga de especialidades')
-    })
+    }
+  })
 }
 
 export const medicamentos = async (): Promise<void> => {
-  const validate = await medicamentoModel.find()
+  alimentosModel.countDocuments(null, (err, count): void => {
+    if (err) return Console.error('[mongoose-script] Erro ao inserir a carga de medicamentos')
 
-  if (!(validate.length < medicamentosLista.length)) {
-    return Console.success('[mongoose-script] Carga de medicamentos completa')
-  }
-
-  medicamentoModel.insertMany(medicamentosLista, { ordered: false })
-    .then((): void => {
+    if (count > medicamentosLista.length) {
+      medicamentoModel.insertMany(medicamentosLista, { ordered: false })
+        .then((): void => {
+          Console.success('[mongoose-script] Carga de medicamentos completa')
+        })
+        .catch((): void => {
+          Console.error('[mongoose-script] Erro ao inserir a carga de medicamentos')
+        })
+    } else {
       Console.success('[mongoose-script] Carga de medicamentos completa')
-    })
-    .catch((): void => {
-      Console.error('[mongoose-script] Erro ao inserir a carga de medicamentos')
-    })
+    }
+  })
 }

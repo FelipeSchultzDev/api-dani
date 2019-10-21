@@ -37,11 +37,11 @@ class App {
       connect(variaveis.banco, options)
         .then((): void => {
           Console.log('[mongoose] Conectado')
+          alimentos()
           cid()
           medicamentos()
           especialidade()
           condicao()
-          alimentos()
         })
         .catch((erro): void => {
           Console.error(`Erro: ${erro}`)
