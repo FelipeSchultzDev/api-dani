@@ -88,7 +88,7 @@ export const especialidade = async (): Promise<void> => {
 }
 
 export const medicamentos = async (): Promise<void> => {
-  alimentosModel.countDocuments(null, (err, count): void => {
+  medicamentoModel.countDocuments(null, (err, count): void => {
     if (err) return Console.error('[mongoose-script] Erro ao inserir a carga de medicamentos')
 
     if (count > medicamentosLista.length) {
