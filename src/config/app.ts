@@ -34,14 +34,18 @@ class App {
         useFindAndModify: false,
         useCreateIndex: true
       }
+
       connect(variaveis.banco, options)
-        .then((): void => {
+        .then(async (): Promise<void> => {
           Console.log('[mongoose] Conectado')
-          alimentos()
-          cid()
-          medicamentos()
-          especialidade()
-          condicao()
+          await alimentos()
+            .then((): Promise<void> => condicao())
+            .then((): Promise<void> => especialidade())
+            .then((): Promise<void> => cid())
+            .then((): Promise<void> => medicamentos())
+            .catch((err): void => {
+              console.log(err)
+            })
         })
         .catch((erro): void => {
           Console.error(`Erro: ${erro}`)

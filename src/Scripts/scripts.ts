@@ -16,91 +16,137 @@ import medicamentosLista from './docs/medicamentos'
 import medicamentoModel from '../models/medicamento-model'
 
 export const alimentos = async (): Promise<void> => {
-  alimentosModel.countDocuments(null, (err, count): void => {
-    if (err) return Console.error('[mongoose-script] Erro ao inserir a carga de alimentos')
+  Console.info('[mongoose-script] Inserção de alimentos iniciada')
+  return new Promise((resolve, reject): void => {
+    alimentosModel.countDocuments(null, (err, count): void => {
+      if (err) {
+        Console.error('[mongoose-script] Erro ao inserir a carga de alimentos')
+        reject(new Error('Erro ao inserir a carga de alimentos'))
+      }
 
-    if (count < alimentosLista.length) {
-      alimentosModel.insertMany(alimentosLista, { ordered: false })
-        .then((): void => {
-          Console.success('[mongoose-script] Carga de alimentos completa')
-        })
-        .catch((): void => {
-          Console.error('[mongoose-script] Erro ao inserir a carga de alimentos')
-        })
-    } else {
-      Console.success('[mongoose-script] Carga de alimentos completa')
-    }
+      if (count < alimentosLista.length) {
+        alimentosModel.insertMany(alimentosLista, { ordered: false })
+          .then((): void => {
+            Console.success('[mongoose-script] Carga de alimentos completa')
+            resolve()
+          })
+          .catch((): void => {
+            Console.error('[mongoose-script] Erro ao inserir a carga de alimentos')
+            reject(new Error('Erro ao inserir a carga de alimentos'))
+          })
+      } else {
+        Console.success('[mongoose-script] Carga de alimentos completa')
+        resolve()
+      }
+    })
   })
 }
 
 export const cid = async (): Promise<void> => {
-  cidModel.countDocuments(null, (err, count): void => {
-    if (err) return Console.error('[mongoose-script] Erro ao inserir a carga de doenças')
+  Console.info('[mongoose-script] Inserção de doenças iniciada')
+  return new Promise((resolve, reject): void => {
+    cidModel.countDocuments(null, (err, count): void => {
+      if (err) {
+        Console.error('[mongoose-script] Erro ao inserir a carga de doenças')
+        reject(new Error('Erro ao inserir a carga de doenças'))
+      }
 
-    if (count < cidLista.length) {
-      cidModel.insertMany(cidLista, { ordered: false })
-        .then((): void => {
-          Console.success('[mongoose-script] Carga de doenças completa')
-        })
-        .catch((): void => {
-          Console.error('[mongoose-script] Erro ao inserir a carga de doenças')
-        })
-    } else {
-      Console.success('[mongoose-script] Carga de doenças completa')
-    }
+      if (count < cidLista.length) {
+        console.log(1)
+        cidModel.insertMany(cidLista, { ordered: false })
+          .then((): void => {
+            Console.success('[mongoose-script] Carga de doenças completa')
+            resolve()
+          })
+          .catch((): void => {
+            Console.error('[mongoose-script] Erro ao inserir a carga de doenças')
+            reject(new Error('Erro ao inserir a carga de doenças'))
+          })
+      } else {
+        Console.success('[mongoose-script] Carga de doenças completa')
+        resolve()
+      }
+    })
   })
 }
 
 export const condicao = async (): Promise<void> => {
-  condicaoModel.countDocuments(null, (err, count): void => {
-    if (err) return Console.error('[mongoose-script] Erro ao inserir a carga de condições')
+  Console.info('[mongoose-script] Inserção de condições iniciada')
+  return new Promise((resolve, reject): void => {
+    condicaoModel.countDocuments(null, (err, count): void => {
+      if (err) {
+        Console.error('[mongoose-script] Erro ao inserir a carga de condições')
+        reject(new Error('Erro ao inserir a carga de condições'))
+      }
 
-    if (count < condicaoLista.length) {
-      condicaoModel.insertMany(condicaoLista, { ordered: false })
-        .then((): void => {
-          Console.success('[mongoose-script] Carga de condições completa')
-        })
-        .catch((): void => {
-          Console.error('[mongoose-script] Erro ao inserir a carga de condições')
-        })
-    } else {
-      Console.success('[mongoose-script] Carga de condições completa')
-    }
+      if (count < condicaoLista.length) {
+        condicaoModel.insertMany(condicaoLista, { ordered: false })
+          .then((): void => {
+            Console.success('[mongoose-script] Carga de condições completa')
+            resolve()
+          })
+          .catch((): void => {
+            Console.error('[mongoose-script] Erro ao inserir a carga de condições')
+            reject(new Error('Erro ao inserir a carga de condições'))
+          })
+      } else {
+        Console.success('[mongoose-script] Carga de condições completa')
+        resolve()
+      }
+    })
   })
 }
 
 export const especialidade = async (): Promise<void> => {
-  especialidadeModel.countDocuments(null, (err, count): void => {
-    if (err) return Console.error('[mongoose-script] Erro ao inserir a carga de especialidades')
+  Console.info('[mongoose-script] Inserção de especialidade iniciada')
+  return new Promise((resolve, reject): void => {
+    especialidadeModel.countDocuments(null, (err, count): void => {
+      if (err) {
+        Console.error('[mongoose-script] Erro ao inserir a carga de especialidades')
+        reject(new Error('Erro ao inserir a carga de especialidades'))
+      }
 
-    if (count < especialidadeLista.length) {
-      especialidadeModel.insertMany(especialidadeLista, { ordered: false })
-        .then((): void => {
-          Console.success('[mongoose-script] Carga de especialidades completa')
-        })
-        .catch((): void => {
-          Console.error('[mongoose-script] Erro ao inserir a carga de especialidades')
-        })
-    } else {
-      Console.success('[mongoose-script] Carga de especialidades completa')
-    }
+      if (count < especialidadeLista.length) {
+        especialidadeModel.insertMany(especialidadeLista, { ordered: false })
+          .then((): void => {
+            Console.success('[mongoose-script] Carga de especialidades completa')
+            resolve()
+          })
+          .catch((): void => {
+            Console.error('[mongoose-script] Erro ao inserir a carga de especialidades')
+            reject(new Error('Erro ao inserir a carga de especialidades'))
+          })
+      } else {
+        Console.success('[mongoose-script] Carga de especialidades completa')
+        resolve()
+      }
+    })
   })
 }
 
 export const medicamentos = async (): Promise<void> => {
-  medicamentoModel.countDocuments(null, (err, count): void => {
-    if (err) return Console.error('[mongoose-script] Erro ao inserir a carga de medicamentos')
+  Console.info('[mongoose-script] Inserção de medicamento iniciada')
+  return new Promise((resolve, reject): void => {
+    medicamentoModel.countDocuments(null, (err, count): void => {
+      if (err) {
+        Console.error('[mongoose-script] Erro ao inserir a carga de medicamentos')
+        reject(new Error('Erro ao inserir a carga de medicamentos'))
+      }
 
-    if (count < medicamentosLista.length) {
-      medicamentoModel.insertMany(medicamentosLista, { ordered: false })
-        .then((): void => {
-          Console.success('[mongoose-script] Carga de medicamentos completa')
-        })
-        .catch((): void => {
-          Console.error('[mongoose-script] Erro ao inserir a carga de medicamentos')
-        })
-    } else {
-      Console.success('[mongoose-script] Carga de medicamentos completa')
-    }
+      if (count < medicamentosLista.length) {
+        medicamentoModel.insertMany(medicamentosLista, { ordered: false })
+          .then((): void => {
+            Console.success('[mongoose-script] Carga de medicamentos completa')
+            resolve()
+          })
+          .catch((): void => {
+            Console.error('[mongoose-script] Erro ao inserir a carga de medicamentos')
+            reject(new Error('Erro ao inserir a carga de medicamentos'))
+          })
+      } else {
+        Console.success('[mongoose-script] Carga de medicamentos completa')
+        resolve()
+      }
+    })
   })
 }
