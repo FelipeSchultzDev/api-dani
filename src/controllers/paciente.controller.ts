@@ -11,7 +11,6 @@ class PacienteController {
         return res.status(200).json({ success: true })
       })
       .catch((err): Response => {
-        console.log(err)
         return res.status(200).json({ success: false, error: 'Falha ao cadastrar paciente' })
       })
   }

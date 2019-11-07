@@ -10,17 +10,14 @@ const Pessoa = new Schema({
   cpf: { type: String, min: 14, max: 14 },
   email: { type: String, default: '' },
   senha: { type: String, default: '' },
-  cns: { type: String },
+  cns: { type: String, default: '' },
   nomeMae: { type: String, default: '' },
   nomePai: { type: String, default: '' },
   celular: { type: String, min: 14, max: 14, default: '' },
   telEmergencia: { type: String, min: 14, max: 14, default: '' },
-  crm: { type: String, default: '' },
-  especialidade: { type: Schema.Types.ObjectId },
   tpoSanguineo: { type: String, default: '' },
   medicamentos: { type: [Schema.Types.ObjectId] },
   alAlimentos: { type: [Schema.Types.ObjectId] },
-  doencaCronica: { type: [Schema.Types.ObjectId] },
   condEspecial: { type: [Schema.Types.ObjectId] }
 }, {
   timestamps: false

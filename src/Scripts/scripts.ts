@@ -9,9 +9,6 @@ import cidModel from '../models/cid-model'
 import condicaoLista from './docs/condicao'
 import condicaoModel from '../models/condicao-model'
 
-import especialidadeLista from './docs/especialidade'
-import especialidadeModel from '../models/especialidade-model'
-
 import medicamentosLista from './docs/medicamentos'
 import medicamentoModel from '../models/medicamento-model'
 
@@ -91,33 +88,6 @@ export const condicao = async (): Promise<void> => {
           })
       } else {
         Console.success('[mongoose-script] Carga de condições completa')
-        resolve()
-      }
-    })
-  })
-}
-
-export const especialidade = async (): Promise<void> => {
-  Console.info('[mongoose-script] Inserção de especialidade iniciada')
-  return new Promise((resolve, reject): void => {
-    especialidadeModel.countDocuments(null, (err, count): void => {
-      if (err) {
-        Console.error('[mongoose-script] Erro ao inserir a carga de especialidades')
-        reject(new Error('Erro ao inserir a carga de especialidades'))
-      }
-
-      if (count < especialidadeLista.length) {
-        especialidadeModel.insertMany(especialidadeLista, { ordered: false })
-          .then((): void => {
-            Console.success('[mongoose-script] Carga de especialidades completa')
-            resolve()
-          })
-          .catch((): void => {
-            Console.error('[mongoose-script] Erro ao inserir a carga de especialidades')
-            reject(new Error('Erro ao inserir a carga de especialidades'))
-          })
-      } else {
-        Console.success('[mongoose-script] Carga de especialidades completa')
         resolve()
       }
     })
