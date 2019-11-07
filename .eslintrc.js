@@ -19,5 +19,6 @@ module.exports = {
     'sourceType': 'module'
   },
   'rules': {
+    'no-extend-native': 0
   }
 }

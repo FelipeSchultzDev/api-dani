@@ -1,3 +1,4 @@
+import { model } from 'mongoose'
 import { ValidationError } from 'joi'
 import md5 from 'md5'
 
@@ -36,18 +37,49 @@ class Util {
   public joiErrorConvert (errorList: ValidationError): Error[] {
     const newErrorList = errorList.details.map((err): Error => {
       return {
-        msg: err.message,
+        message: err.message,
         field: err.context.key
       }
     })
 
     return newErrorList
   }
+
+  public convertToError (message: string, field: string): Error {
+    return {
+      message,
+      field
+    }
+  }
+
+  public async validate (id: string, data, schema, fieldsInclude?: string[]): Promise<string> {
+    const where = this.createOrValidator(data, fieldsInclude)
+
+    const validate = await model(schema).find(where)
+
+    console.log(validate)
+    return ''
+  }
+
+  private createOrValidator (data, fieldsInclude?: string[]): Or {
+    const validateList = { $or: [] }
+
+    Object.keys(data).forEach((key): void => {
+      if (fieldsInclude && fieldsInclude.includes(key)) {
+        validateList.$or.push({ [key]: data[key] })
+      }
+    })
+
+    return validateList
+  }
 }
 
 export default new Util()
 
 interface Error {
-  msg: string;
+  message: string;
   field: string;
+}
+interface Or {
+  $or: { [key: string]: any }[]
 }

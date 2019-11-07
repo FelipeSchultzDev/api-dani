@@ -10,7 +10,7 @@ class PacienteController {
       .then((): Response => {
         return res.status(200).json({ success: true })
       })
-      .catch((err): Response => {
+      .catch((): Response => {
         return res.status(200).json({ success: false, error: 'Falha ao cadastrar paciente' })
       })
   }
@@ -25,6 +25,16 @@ class PacienteController {
       Console.error(error)
       return res.status(200).json({ success: false, error: 'Falha ao cadastrar paciente' })
     }
+  }
+
+  public async update (req: Request, res: Response): Promise<void> {
+    PacienteModel.create(req.body)
+      .then((): Response => {
+        return res.status(200).json({ success: true })
+      })
+      .catch((): Response => {
+        return res.status(200).json({ success: false, error: 'Falha ao cadastrar paciente' })
+      })
   }
 }
 
