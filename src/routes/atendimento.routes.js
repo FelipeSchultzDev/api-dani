@@ -8,5 +8,6 @@ import validation from './../validations/atendimento.validation'
 const router = Router()
 
 router.post('/', jwt, validation.create, controller.create)
+router.get('/', jwt, controller.getAll)
 
 export default router

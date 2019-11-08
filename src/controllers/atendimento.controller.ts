@@ -25,6 +25,17 @@ class PacienteController {
       return res.status(500).json({ success: false, error: 'Falha ao atendimento paciente' })
     }
   }
+  public async getAll (req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = res.locals.user
+
+      const { atendimentos } = await PacienteModel.findById(id).populate('atendimentos', 'nome data medico cid -_id', 'Atendimento')
+      return res.status(200).json({ success: true, atendimentos })
+    } catch (error) {
+      Console.error(error)
+      return res.status(500).json({ success: false, error: 'Falha ao atendimento paciente' })
+    }
+  }
 }
 
 export default new PacienteController()
