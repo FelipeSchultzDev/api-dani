@@ -13,7 +13,8 @@ class PacienteController {
       .then((): Response => {
         return res.status(200).json({ success: true })
       })
-      .catch((): Response => {
+      .catch((error): Response => {
+        Console.error(error)
         return res.status(200).json({ success: false, error: 'Falha ao cadastrar paciente' })
       })
   }

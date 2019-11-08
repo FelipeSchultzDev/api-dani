@@ -18,7 +18,8 @@ const Pessoa = new Schema({
   tpoSanguineo: { type: String, default: '' },
   medicamentos: { type: [Schema.Types.ObjectId] },
   alAlimentos: { type: [Schema.Types.ObjectId] },
-  condEspecial: { type: [Schema.Types.ObjectId] }
+  condEspecial: { type: [Schema.Types.ObjectId] },
+  atendimentos: { type: [Schema.Types.ObjectId], ref: 'Atendimento' }
 }, {
   timestamps: false
 })
