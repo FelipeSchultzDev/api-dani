@@ -10,56 +10,59 @@ import PacienteModel from '../models/pessoa-model'
 
 class PacienteValidacao {
   public async create (req: Request, res: Response, next: NextFunction): Promise<Response> {
-    let errorList = []
-    const { error } = Joi.validate(req.body, criarSchema, { abortEarly: false })
+    try {
+      let errorList = []
+      const { error } = Joi.validate(req.body, criarSchema, { abortEarly: false })
 
-    const validate = await PacienteModel.findOne({ cpf: req.body.cpf })
+      const validate = await PacienteModel.findOne({ cpf: req.body.cpf })
 
-    if (validate) {
-      errorList.push({ msg: 'cpf.ja.cadastrado', field: 'cpf' })
-    } else if (!util.cpfValidation(req.body.cpf)) {
-      errorList.push({ msg: 'cpf.invalido', field: 'cpf' })
-    }
+      if (validate) {
+        errorList.push({ msg: 'cpf.ja.cadastrado', field: 'cpf' })
+      } else if (!util.cpfValidation(req.body.cpf)) {
+        errorList.push({ msg: 'cpf.invalido', field: 'cpf' })
+      }
 
-    if (errorList.length || error) {
-      errorList = error ? errorList.concat(util.joiErrorConvert(error)) : errorList
-      return res.status(200).json({ success: false, errorList })
-    } else {
-      req.body.senha = util.encode(req.body.senha)
-      next()
+      if (errorList.length || error) {
+        errorList = error ? errorList.concat(util.joiErrorConvert(error)) : errorList
+        return res.status(200).json({ success: false, errorList })
+      } else {
+        req.body.senha = util.encode(req.body.senha)
+        next()
+      }
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json()
     }
   }
 
   public async update (req: Request, res: Response, next: NextFunction): Promise<Response> {
-    let errorList = []
-    const { error } = Joi.validate(req.body, atualizarSchema, { abortEarly: false })
+    try {
+      let errorList = []
+      const { error } = Joi.validate(req.body, atualizarSchema, { abortEarly: false })
 
-    const { id } = res.locals.user
+      const { id } = res.locals.user
 
-    // const validate = await PacienteModel.findOne({ cpf: req.body.cpf })
+      if (req.body.cpf && !util.cpfValidation(req.body.cpf)) {
+        errorList.push({ msg: 'cpf.invalido', field: 'cpf' })
+      }
 
-    // if (validate) {
-    //   errorList.push({ msg: 'cpf.ja.cadastrado', field: 'cpf' })
-    // } else if (!util.cpfValidation(req.body.cpf)) {
-    //   errorList.push({ msg: 'cpf.invalido', field: 'cpf' })
-    // }
+      errorList = error ? util.joiErrorConvert(error) : []
 
-    // if (errorList.length || error) {
-    //   errorList = error ? errorList.concat(util.joiErrorConvert(error)) : errorList
-    // return res.status(200).json({ success: false, errorList })
-    // } else {
-    //   req.body.senha = util.encode(req.body.senha)
-    //   next()
-    // }
-    util.validate(id, req.body, 'Pessoa', [
-      'cpf',
-      'email',
-      'cns'
-    ])
+      errorList.concat(util.validate(id, req.body, 'Pessoa', [
+        'cpf',
+        'email',
+        'cns'
+      ]))
 
-    errorList = error ? util.joiErrorConvert(error) : []
-
-    return res.status(200).json({ success: false, error: errorList })
+      if (errorList.length || error) {
+        return res.status(200).json({ success: false, errorList })
+      } else {
+        next()
+      }
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json()
+    }
   }
 }
 export default new PacienteValidacao()

@@ -52,13 +52,33 @@ class Util {
     }
   }
 
-  public async validate (id: string, data, schema, fieldsInclude?: string[]): Promise<string> {
+  public async validate (id: string, data, schema, fieldsInclude?: string[]): Promise<Error[]> {
+    const errorList = []
+
     const where = this.createOrValidator(data, fieldsInclude)
 
-    const validate = await model(schema).find(where)
+    let validate = null
 
-    console.log(validate)
-    return ''
+    if (where.$or.length) {
+      validate = await model(schema).find(where)
+    } else {
+      validate = await model(schema).find()
+    }
+
+    validate.forEach((doc): void => {
+      if (JSON.stringify(id) !== JSON.stringify(doc._id)) {
+        Object.keys(fieldsInclude).forEach((key: string): void => {
+          if (data[key] !== '' && doc[key] === data[key]) {
+            errorList.push({
+              message: 'campo.com.valor.ja.cadastrado',
+              field: key
+            })
+          }
+        })
+      }
+    })
+
+    return errorList
   }
 
   private createOrValidator (data, fieldsInclude?: string[]): Or {
