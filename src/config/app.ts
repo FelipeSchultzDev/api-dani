@@ -11,6 +11,7 @@ import { cid, medicamentos, condicao, alimentos } from './../Scripts/scripts'
 // Rotas
 import paciente from '../routes/paciente.routes'
 import loginRoutes from '../routes/login.routes'
+import atendimentoRoutes from '../routes/atendimento.routes'
 
 class App {
     public express: express.Application
@@ -53,7 +54,8 @@ class App {
 
     private routes (): void {
       this.express.use('/login', loginRoutes)
-      this.express.use('/', paciente)
+      this.express.use('/paciente', paciente)
+      this.express.use('/atendimento', atendimentoRoutes)
     }
 }
 

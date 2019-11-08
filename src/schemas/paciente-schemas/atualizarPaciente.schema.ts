@@ -8,6 +8,7 @@ msg['any.allowOnly'] = 'resenha.invalida'
 
 msg['string.base'] = 'campo.deve.ser.string'
 msg['array.base'] = 'campo.deve.ser.array'
+msg['date.base'] = 'campo.deve.ser.date'
 
 const schema = Joi.object({
   nome: Joi.string().error((errors): ValidationErrorItem[] => {

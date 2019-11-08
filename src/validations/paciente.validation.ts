@@ -64,5 +64,35 @@ class PacienteValidacao {
       return res.status(500).json()
     }
   }
+
+  public async createAtendimento (req: Request, res: Response, next: NextFunction): Promise<Response> {
+    try {
+      let errorList = []
+      const { error } = Joi.validate(req.body, atualizarSchema, { abortEarly: false })
+
+      const { id } = res.locals.user
+
+      if (req.body.cpf && !util.cpfValidation(req.body.cpf)) {
+        errorList.push({ msg: 'cpf.invalido', field: 'cpf' })
+      }
+
+      errorList = error ? util.joiErrorConvert(error) : []
+
+      errorList.concat(util.validate(id, req.body, 'Pessoa', [
+        'cpf',
+        'email',
+        'cns'
+      ]))
+
+      if (errorList.length || error) {
+        return res.status(200).json({ success: false, errorList })
+      } else {
+        next()
+      }
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json()
+    }
+  }
 }
 export default new PacienteValidacao()

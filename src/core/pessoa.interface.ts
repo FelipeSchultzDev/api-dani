@@ -18,4 +18,5 @@ export default interface PessoaInterface extends Document {
     alAlimentos?: []
     doencaCronica?: []
     condEspecial?: []
+    atendimentos?: []
 }
