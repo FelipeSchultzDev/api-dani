@@ -10,5 +10,6 @@ const router = Router()
 router.post('/paciente', validation.create, controller.create)
 router.get('/paciente', jwt, controller.getById)
 router.put('/paciente', jwt, validation.update, controller.update)
+router.get('/paciente/combo', jwt, controller.getComboOptions)
 
 export default router
