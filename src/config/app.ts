@@ -6,7 +6,7 @@ import bodyParser from 'body-parser'
 import Console from '../util/logger'
 import variaveis from '../config/variaveis'
 
-import { cid, medicamentos, especialidade, condicao, alimentos } from './../Scripts/scripts'
+import { cid, medicamentos, condicao, alimentos } from './../Scripts/scripts'
 
 // Rotas
 import paciente from '../routes/paciente.routes'
@@ -34,14 +34,17 @@ class App {
         useFindAndModify: false,
         useCreateIndex: true
       }
+
       connect(variaveis.banco, options)
-        .then((): void => {
+        .then(async (): Promise<void> => {
           Console.log('[mongoose] Conectado')
-          cid()
-          medicamentos()
-          especialidade()
-          condicao()
-          alimentos()
+          await alimentos()
+            .then((): Promise<void> => condicao())
+            .then((): Promise<void> => cid())
+            .then((): Promise<void> => medicamentos())
+            .catch((err): void => {
+              console.log(err)
+            })
         })
         .catch((erro): void => {
           Console.error(`Erro: ${erro}`)

@@ -15,22 +15,11 @@ const Pessoa = new Schema({
   nomePai: { type: String, default: '' },
   celular: { type: String, min: 14, max: 14, default: '' },
   telEmergencia: { type: String, min: 14, max: 14, default: '' },
-  crm: { type: String, default: '' },
-  especialidade: { type: Schema.Types.ObjectId },
   tpoSanguineo: { type: String, default: '' },
   medicamentos: { type: [Schema.Types.ObjectId] },
   alAlimentos: { type: [Schema.Types.ObjectId] },
-  doencaCronica: { type: [Schema.Types.ObjectId] },
   condEspecial: { type: [Schema.Types.ObjectId] }
 }, {
   timestamps: false
 })
 export default model<PessoaInterface>('Pessoa', Pessoa)
-
-// validate: [{
-//   validator: async (cns: string): Promise<boolean> => {
-//     let search = await model('Pessoa').find({ cns: cns.toLowerCase() })
-
-//     if (search.length > 0) return false
-//   }
-// }]

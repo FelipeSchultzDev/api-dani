@@ -10,8 +10,7 @@ class PacienteController {
       .then((): Response => {
         return res.status(200).json({ success: true })
       })
-      .catch((err): Response => {
-        console.log(err)
+      .catch((): Response => {
         return res.status(200).json({ success: false, error: 'Falha ao cadastrar paciente' })
       })
   }
@@ -25,6 +24,18 @@ class PacienteController {
     } catch (error) {
       Console.error(error)
       return res.status(200).json({ success: false, error: 'Falha ao cadastrar paciente' })
+    }
+  }
+
+  public async update (req: Request, res: Response): Promise<Response> {
+    const { id } = res.locals.user
+
+    try {
+      const paciente = await PacienteModel.findByIdAndUpdate(id, req.body, { new: true }).select('-senha -__v')
+      return res.status(200).json({ success: true, paciente })
+    } catch (error) {
+      Console.error(error)
+      return res.status(200).json({ success: false, error: 'Falha ao atualizar paciente' })
     }
   }
 }

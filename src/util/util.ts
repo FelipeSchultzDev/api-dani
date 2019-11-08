@@ -1,3 +1,4 @@
+import { model } from 'mongoose'
 import { ValidationError } from 'joi'
 import md5 from 'md5'
 
@@ -36,18 +37,69 @@ class Util {
   public joiErrorConvert (errorList: ValidationError): Error[] {
     const newErrorList = errorList.details.map((err): Error => {
       return {
-        msg: err.message,
+        message: err.message,
         field: err.context.key
       }
     })
 
     return newErrorList
   }
+
+  public convertToError (message: string, field: string): Error {
+    return {
+      message,
+      field
+    }
+  }
+
+  public async validate (id: string, data, schema, fieldsInclude?: string[]): Promise<Error[]> {
+    const errorList = []
+
+    const where = this.createOrValidator(data, fieldsInclude)
+
+    let validate = null
+
+    if (where.$or.length) {
+      validate = await model(schema).find(where)
+    } else {
+      validate = await model(schema).find()
+    }
+
+    validate.forEach((doc): void => {
+      if (JSON.stringify(id) !== JSON.stringify(doc._id)) {
+        Object.keys(fieldsInclude).forEach((key: string): void => {
+          if (data[key] !== '' && doc[key] === data[key]) {
+            errorList.push({
+              message: 'campo.com.valor.ja.cadastrado',
+              field: key
+            })
+          }
+        })
+      }
+    })
+
+    return errorList
+  }
+
+  private createOrValidator (data, fieldsInclude?: string[]): Or {
+    const validateList = { $or: [] }
+
+    Object.keys(data).forEach((key): void => {
+      if (fieldsInclude && fieldsInclude.includes(key)) {
+        validateList.$or.push({ [key]: data[key] })
+      }
+    })
+
+    return validateList
+  }
 }
 
 export default new Util()
 
 interface Error {
-  msg: string;
+  message: string;
   field: string;
+}
+interface Or {
+  $or: { [key: string]: any }[]
 }
