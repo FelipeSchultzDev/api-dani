@@ -8,7 +8,7 @@ const Atendimento = new Schema({
   cid: { type: String, lowercase: true, default: '' },
   receita: { type: String, default: '' },
   data: { type: Date, default: '' },
-  diagnóstico: { type: String, default: '' }
+  diagnostico: { type: String, default: '' }
 }, {
   timestamps: false
 })
