@@ -9,7 +9,7 @@ import util from './../util/util'
 class LoginController {
   public async login (req: Request, res: Response): Promise<Response> {
     const paciente = await PacienteModel.findOne({
-      email: req.body.usuario,
+      email: req.body.usuario.toLowerCase(),
       senha: util.encode(req.body.senha)
     })
 

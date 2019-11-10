@@ -25,7 +25,13 @@ const schema = Joi.object({
     })
     return errors
   }),
-  receita: Joi.string().required().error((errors): ValidationErrorItem[] => {
+  dosagem: Joi.string().required().error((errors): ValidationErrorItem[] => {
+    errors.forEach((err): void => {
+      err.message = msg[err.type]
+    })
+    return errors
+  }),
+  medicamento: Joi.string().required().error((errors): ValidationErrorItem[] => {
     errors.forEach((err): void => {
       err.message = msg[err.type]
     })
