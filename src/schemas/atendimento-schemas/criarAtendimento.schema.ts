@@ -43,7 +43,7 @@ const schema = Joi.object({
     })
     return errors
   }),
-  diagnóstico: Joi.string().required().error((errors): ValidationErrorItem[] => {
+  diagnostico: Joi.string().required().error((errors): ValidationErrorItem[] => {
     errors.forEach((err): void => {
       err.message = msg[err.type]
     })
