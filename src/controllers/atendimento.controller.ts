@@ -12,6 +12,8 @@ class PacienteController {
     try {
       const { id } = res.locals.user
 
+      console.log(req.body)
+
       const atendimento = await AtendimentoModel.create(req.body)
 
       await PacienteModel.findByIdAndUpdate(id, {
@@ -24,7 +26,7 @@ class PacienteController {
       return res.status(200).json({ success: true })
     } catch (error) {
       Console.error(error)
-      return res.status(500).json({ success: false, error: 'Falha ao atendimento paciente' })
+      return res.status(500).json({ success: false, error: 'Falha ao cadastrar atendimento' })
     }
   }
   public async getAll (req: Request, res: Response): Promise<Response> {
@@ -35,7 +37,7 @@ class PacienteController {
       return res.status(200).json({ success: true, atendimentos })
     } catch (error) {
       Console.error(error)
-      return res.status(500).json({ success: false, error: 'Falha ao atendimento paciente' })
+      return res.status(500).json({ success: false, error: 'Falha ao listar atendimento' })
     }
   }
 
