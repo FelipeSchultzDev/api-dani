@@ -34,10 +34,25 @@ class PacienteController {
       const { id } = res.locals.user
 
       const { atendimentos } = await PacienteModel.findById(id).populate('atendimentos', 'nome data medico cid -_id', 'Atendimento')
-      return res.status(200).json({ success: true, atendimentos })
+
+      const newAtendimentos = await AtendimentoModel.populate(atendimentos, {
+        path: 'cid',
+        model: 'Cid',
+        select: 'nome -_id'
+      })
+
+      const atendimentosLista = newAtendimentos.map((atendimento): Atendimento => {
+        return {
+          nome: atendimento.nome,
+          medico: atendimento.medico,
+          data: atendimento.data,
+          cid: atendimento.cid.nome
+        }
+      })
+      return res.status(200).json({ success: true, atendimentos: atendimentosLista })
     } catch (error) {
       Console.error(error)
-      return res.status(500).json({ success: false, error: 'Falha ao listar atendimento' })
+      return res.status(500).json({ success: false, error: 'Falha ao listar atendimentos' })
     }
   }
 
@@ -69,6 +84,13 @@ class PacienteController {
 }
 
 export default new PacienteController()
+
+interface Atendimento {
+  nome: string;
+  medico: string;
+  data: Date;
+  cid: string;
+}
 
 interface Combo {
   label: string;
