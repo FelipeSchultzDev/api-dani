@@ -29,7 +29,7 @@ const schema = Joi.object({
     })
     return errors
   }),
-  sexo: Joi.string().allow('').error((errors): ValidationErrorItem[] => {
+  genero: Joi.string().allow('').error((errors): ValidationErrorItem[] => {
     errors.forEach((err): void => {
       err.message = msg[err.type]
     })
