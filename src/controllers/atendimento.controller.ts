@@ -12,8 +12,6 @@ class PacienteController {
     try {
       const { id } = res.locals.user
 
-      console.log(req.body)
-
       const atendimento = await AtendimentoModel.create(req.body)
 
       await PacienteModel.findByIdAndUpdate(id, {

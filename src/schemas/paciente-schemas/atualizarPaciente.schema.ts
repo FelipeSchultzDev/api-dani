@@ -11,67 +11,67 @@ msg['array.base'] = 'campo.deve.ser.array'
 msg['date.base'] = 'campo.deve.ser.date'
 
 const schema = Joi.object({
-  nome: Joi.string().error((errors): ValidationErrorItem[] => {
+  nome: Joi.string().required().error((errors): ValidationErrorItem[] => {
     errors.forEach((err): void => {
       err.message = msg[err.type]
     })
     return errors
   }),
-  sobrenome: Joi.string().error((errors): ValidationErrorItem[] => {
+  sobrenome: Joi.string().required().error((errors): ValidationErrorItem[] => {
     errors.forEach((err): void => {
       err.message = msg[err.type]
     })
     return errors
   }),
-  nascimento: Joi.date().error((errors): ValidationErrorItem[] => {
+  nascimento: Joi.date().allow('').error((errors): ValidationErrorItem[] => {
     errors.forEach((err): void => {
       err.message = msg[err.type]
     })
     return errors
   }),
-  sexo: Joi.string().error((errors): ValidationErrorItem[] => {
+  sexo: Joi.string().allow('').error((errors): ValidationErrorItem[] => {
     errors.forEach((err): void => {
       err.message = msg[err.type]
     })
     return errors
   }),
-  cpf: Joi.string().error((errors): ValidationErrorItem[] => {
+  cpf: Joi.string().required().error((errors): ValidationErrorItem[] => {
     errors.forEach((err): void => {
       err.message = msg[err.type]
     })
     return errors
   }),
-  cns: Joi.string().error((errors): ValidationErrorItem[] => {
+  cns: Joi.string().allow('').error((errors): ValidationErrorItem[] => {
     errors.forEach((err): void => {
       err.message = msg[err.type]
     })
     return errors
   }),
-  nomeMae: Joi.string().error((errors): ValidationErrorItem[] => {
+  nomeMae: Joi.string().allow('').error((errors): ValidationErrorItem[] => {
     errors.forEach((err): void => {
       err.message = msg[err.type]
     })
     return errors
   }),
-  nomePai: Joi.string().error((errors): ValidationErrorItem[] => {
+  nomePai: Joi.string().allow('').error((errors): ValidationErrorItem[] => {
     errors.forEach((err): void => {
       err.message = msg[err.type]
     })
     return errors
   }),
-  celular: Joi.string().error((errors): ValidationErrorItem[] => {
+  celular: Joi.string().allow('').error((errors): ValidationErrorItem[] => {
     errors.forEach((err): void => {
       err.message = msg[err.type]
     })
     return errors
   }),
-  telEmergencia: Joi.string().error((errors): ValidationErrorItem[] => {
+  telEmergencia: Joi.string().allow('').error((errors): ValidationErrorItem[] => {
     errors.forEach((err): void => {
       err.message = msg[err.type]
     })
     return errors
   }),
-  tpoSanguineo: Joi.string().error((errors): ValidationErrorItem[] => {
+  tpoSanguineo: Joi.string().allow('').error((errors): ValidationErrorItem[] => {
     errors.forEach((err): void => {
       err.message = msg[err.type]
     })
@@ -95,7 +95,7 @@ const schema = Joi.object({
     })
     return errors
   }),
-  email: Joi.string().email().error((errors): ValidationErrorItem[] => {
+  email: Joi.string().email().required().error((errors): ValidationErrorItem[] => {
     errors.forEach((err): void => {
       err.message = msg[err.type]
     })
