@@ -3,7 +3,7 @@ import { Document } from 'mongoose'
 export default interface PessoaInterface extends Document {
     nome?: string
     nascimento?: Date
-    sexo?: string
+    genero?: string
     cpf?: string
     email?: string
     cns?: string

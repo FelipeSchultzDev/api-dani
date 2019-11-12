@@ -45,9 +45,11 @@ class PacienteController {
 
   public async getComboOptions (req: Request, res: Response): Promise<Response> {
     try {
+      const { id } = res.locals.user
       const medicamentosLista = await MedicamentoModel.find().select('-__v -tarja -pAtivo')
       const alimentoLista = await AlimentoModel.find().select('-__v')
       const CondicaoLista = await CondicaoModel.find().select('-__v -codigo')
+      const paciente = await PacienteModel.findById(id).select('-__v -_id -senha')
 
       const medicamentos = medicamentosLista.map((alimento): { [key: string]: any } => {
         return {
@@ -76,7 +78,7 @@ class PacienteController {
         condicao
       }
 
-      return res.status(200).json({ success: true, combo })
+      return res.status(200).json({ success: true, combo, paciente })
     } catch (error) {
       Console.error(error)
       return res.status(200).json({ success: false, error: 'Falha ao atualizar paciente' })
