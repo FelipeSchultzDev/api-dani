@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import PacienteModel from '../models/pessoa-model'
 import MedicamentoModel from '../models/medicamento-model'
 import AlimentoModel from '../models/alimento-model'
-import CidModel from '../models/cid-model'
+import CondicaoModel from '../models/condicao-model'
 
 import Console from './../util/logger'
 
@@ -47,7 +47,7 @@ class PacienteController {
     try {
       const medicamentosLista = await MedicamentoModel.find().select('-__v -tarja -pAtivo')
       const alimentoLista = await AlimentoModel.find().select('-__v')
-      const CidLista = await CidModel.find().select('-__v -codigo')
+      const CondicaoLista = await CondicaoModel.find().select('-__v -codigo')
 
       const medicamentos = medicamentosLista.map((alimento): { [key: string]: any } => {
         return {
@@ -63,7 +63,7 @@ class PacienteController {
         }
       })
 
-      const doencas = CidLista.map((doenca): { [key: string]: any } => {
+      const condicao = CondicaoLista.map((doenca): { [key: string]: any } => {
         return {
           label: doenca.nome,
           value: doenca._id
@@ -73,7 +73,7 @@ class PacienteController {
       const combo = {
         medicamentos,
         alimentos,
-        doencas
+        condicao
       }
 
       return res.status(200).json({ success: true, combo })
