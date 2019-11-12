@@ -16,7 +16,7 @@ const Pessoa = new Schema({
   celular: { type: String, min: 14, max: 14, default: '' },
   telEmergencia: { type: String, min: 14, max: 14, default: '' },
   tpoSanguineo: { type: String, default: '' },
-  medicamentos: { type: [Schema.Types.ObjectId] },
+  medicamentos: { type: [Schema.Types.ObjectId], ref: 'Medicamento' },
   alAlimentos: { type: [Schema.Types.ObjectId] },
   condEspecial: { type: [Schema.Types.ObjectId] },
   atendimentos: { type: [Schema.Types.ObjectId], ref: 'Atendimento' }

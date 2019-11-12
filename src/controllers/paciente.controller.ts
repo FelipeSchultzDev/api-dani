@@ -7,6 +7,27 @@ import CondicaoModel from '../models/condicao-model'
 
 import Console from './../util/logger'
 
+const field = [
+  'nome',
+  'nascimento',
+  'genero',
+  'cpf',
+  'email',
+  'cns',
+  'nomeMae',
+  'nomePai',
+  'celular',
+  'crm',
+  'expecialidade',
+  'telEmergencia',
+  'tpoSanguineo',
+  'medicamentos',
+  'alAlimentos',
+  'doencaCronica',
+  'condEspecial',
+  'atendimentos'
+]
+
 class PacienteController {
   public async create (req: Request, res: Response): Promise<void> {
     PacienteModel.create(req.body)
@@ -24,7 +45,22 @@ class PacienteController {
 
     try {
       const paciente = await PacienteModel.findById(id)
-      return res.status(200).json({ success: true, paciente })
+        .select('-atendimentos -senha -__v')
+        .populate('medicamentos', '-_id nome apresentacao', 'Medicamento')
+        .populate('alAlimentos', '-_id nome', 'Alimento')
+        .populate('condEspecial', '-_id nome', 'CondicaoEspecial')
+
+      const newPaciente: any = {}
+
+      field.forEach((key): void => {
+        newPaciente[key] = paciente[key]
+      })
+
+      newPaciente.medicamentos = paciente.medicamentos.map((medicamento): string => `${medicamento.nome} - ${medicamento.apresentacao}`)
+      newPaciente.alAlimentos = paciente.alAlimentos.map((alimento): string => alimento.nome)
+      newPaciente.condEspecial = paciente.condEspecial.map((condicao): string => condicao.nome)
+
+      return res.status(200).json({ success: true, paciente: newPaciente })
     } catch (error) {
       Console.error(error)
       return res.status(200).json({ success: false, error: 'Falha ao cadastrar paciente' })

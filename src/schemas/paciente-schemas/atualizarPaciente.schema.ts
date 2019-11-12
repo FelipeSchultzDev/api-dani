@@ -23,7 +23,7 @@ const schema = Joi.object({
     })
     return errors
   }),
-  nascimento: Joi.date().allow('').error((errors): ValidationErrorItem[] => {
+  nascimento: Joi.any().error((errors): ValidationErrorItem[] => {
     errors.forEach((err): void => {
       err.message = msg[err.type]
     })

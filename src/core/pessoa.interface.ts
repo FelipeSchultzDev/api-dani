@@ -14,9 +14,9 @@ export default interface PessoaInterface extends Document {
     expecialidade?: string
     telEmergencia?: string
     tpoSanguineo?: string
-    medicamentos?: []
-    alAlimentos?: []
-    doencaCronica?: []
-    condEspecial?: []
-    atendimentos?: []
+    medicamentos?: any[]
+    alAlimentos?: any[]
+    doencaCronica?: any[]
+    condEspecial?: any[]
+    atendimentos?: any[]
 }
