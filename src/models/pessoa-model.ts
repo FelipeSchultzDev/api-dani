@@ -3,12 +3,12 @@ import { Schema, model } from 'mongoose'
 import PessoaInterface from './../core/pessoa.interface'
 
 const Pessoa = new Schema({
-  nome: { type: String, lowercase: true, default: '' },
-  sobrenome: { type: String, lowercase: true, default: '' },
-  nascimento: { type: Date, lowercase: true, default: '' },
+  nome: { type: String, default: '' },
+  sobrenome: { type: String, default: '' },
+  nascimento: { type: Date, default: '' },
   genero: { type: String, default: '' },
   cpf: { type: String, min: 14, max: 14 },
-  email: { type: String, default: '' },
+  email: { type: String, lowercase: true, default: '' },
   senha: { type: String, default: '' },
   cns: { type: String, default: '' },
   nomeMae: { type: String, default: '' },
