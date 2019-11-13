@@ -9,6 +9,7 @@ import Console from './../util/logger'
 
 const field = [
   'nome',
+  'sobrenome',
   'nascimento',
   'genero',
   'cpf',
@@ -55,6 +56,7 @@ class PacienteController {
       field.forEach((key): void => {
         newPaciente[key] = paciente[key]
       })
+      // console.log(paciente)
 
       newPaciente.medicamentos = paciente.medicamentos.map((medicamento): string => `${medicamento.nome} - ${medicamento.apresentacao}`)
       newPaciente.alAlimentos = paciente.alAlimentos.map((alimento): string => alimento.nome)
@@ -71,6 +73,8 @@ class PacienteController {
     const { id } = res.locals.user
 
     try {
+      console.log(req.body)
+      
       const paciente = await PacienteModel.findByIdAndUpdate(id, req.body, { new: true }).select('-senha -__v')
       return res.status(200).json({ success: true, paciente })
     } catch (error) {
